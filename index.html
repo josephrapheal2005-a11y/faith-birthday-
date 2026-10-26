@@ -1,771 +1,1127 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <meta
-    name="theme-color"
-    content="#fff5f2"
-  />
-
-  <meta
-    name="description"
-    content="A little birthday surprise for Ukwela Faith Ojochebo, with love from Songspirer."
-  />
-
-  <title>Happy Birthday, Faith! 🎂</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root {
-      --cream: #fff8f3;
-      --pink: #f8b8c8;
-      --rose: #d94f79;
-      --purple: #7855a5;
-      --ink: #38253d;
-      --muted: #786a7b;
-      --white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: "DM Sans", sans-serif;
-      overflow-x: hidden;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    button:focus-visible {
-      outline: 3px solid var(--purple);
-      outline-offset: 5px;
-    }
-
-    .screen {
-      display: none;
-      min-height: 100vh;
-      padding: 24px;
-    }
-
-    .screen.active {
-      display: flex;
-      animation: fadeIn 0.7s ease both;
-    }
-
-    /* Decorative background */
-
-    .welcome {
-      position: relative;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-
-      background:
-        radial-gradient(
-          circle at 10% 15%,
-          rgba(248, 184, 200, 0.40),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 90% 85%,
-          rgba(120, 85, 165, 0.16),
-          transparent 35%
-        ),
-        var(--cream);
-    }
-
-    .welcome-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 720px;
-      padding: 50px 18px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 24px;
-      padding: 10px 17px;
-      border: 1px solid rgba(217, 79, 121, 0.25);
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.65);
-
-      color: var(--rose);
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-    }
-
-    .birthday-title {
-      margin-bottom: 12px;
-      color: var(--rose);
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2px;
-    }
-
-    .birthday-name {
-      margin: 0 auto 22px;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2rem, 7vw, 4.3rem);
-      font-weight: 700;
-      line-height: 1.12;
-      overflow-wrap: anywhere;
-    }
-
-    .welcome-message {
-      max-width: 430px;
-      margin: 0 auto 32px;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.8;
-    }
-
-    .gift-icon {
-      display: grid;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 28px;
-      place-items: center;
-
-      border: 1px solid rgba(217, 79, 121, 0.15);
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.8);
-      box-shadow: 0 16px 45px rgba(115, 67, 103, 0.10);
-
-      font-size: 3.3rem;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    .primary-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      min-height: 58px;
-      padding: 17px 27px;
-      border: none;
-      border-radius: 18px;
-
-      background: linear-gradient(
-        135deg,
-        var(--rose),
-        var(--purple)
-      );
-
-      color: white;
-      font-size: 0.92rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-
-      box-shadow: 0 12px 28px rgba(160, 73, 127, 0.22);
-      cursor: pointer;
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .primary-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 17px 34px rgba(160, 73, 127, 0.30);
-    }
-
-    .footer-note {
-      margin-top: 36px;
-      color: #9a8999;
-      font-size: 0.8rem;
-    }
-
-    /* Floating decorations */
-
-    .decoration {
-      position: absolute;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.65;
-      animation: float 5s ease-in-out infinite;
-    }
-
-    .decoration.one {
-      top: 12%;
-      left: 8%;
-      font-size: 2rem;
-    }
-
-    .decoration.two {
-      top: 20%;
-      right: 9%;
-      font-size: 2.5rem;
-      animation-delay: 1s;
-    }
-
-    .decoration.three {
-      bottom: 13%;
-      left: 12%;
-      font-size: 2rem;
-      animation-delay: 2s;
-    }
-
-    .decoration.four {
-      right: 10%;
-      bottom: 17%;
-      font-size: 2rem;
-      animation-delay: 0.5s;
-    }
-
-    /* Birthday letter */
-
-    .letter-screen {
-      display: none;
-      justify-content: center;
-      padding: 45px 18px 60px;
-      background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(248, 184, 200, 0.25),
-          transparent 30%
-        ),
-        var(--cream);
-    }
-
-    .letter-screen.active {
-      display: flex;
-    }
-
-    .letter-wrapper {
-      width: 100%;
-      max-width: 760px;
-    }
-
-    .letter-top {
-      margin-bottom: 28px;
-      text-align: center;
-    }
-
-    .letter-top .small-label {
-      margin-bottom: 12px;
-      color: var(--rose);
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .letter-top h2 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(2rem, 6vw, 3.4rem);
-      line-height: 1.2;
-    }
-
-    .letter-top p {
-      margin-top: 12px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .poem-card {
-      padding: clamp(25px, 6vw, 55px);
-      border: 1px solid rgba(217, 79, 121, 0.13);
-      border-radius: 28px;
-
-      background: rgba(255, 255, 255, 0.86);
-      box-shadow: 0 20px 70px rgba(84, 52, 84, 0.08);
-    }
-
-    .poem-heading {
-      margin-bottom: 35px;
-      text-align: center;
-    }
-
-    .poem-heading .ornament {
-      margin-bottom: 14px;
-      color: var(--rose);
-      font-size: 1.5rem;
-      letter-spacing: 9px;
-    }
-
-    .poem-heading h3 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(1.6rem, 5vw, 2.3rem);
-      line-height: 1.3;
-    }
-
-    .poem-heading p {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .poem {
-      color: #49394b;
-      font-size: clamp(0.98rem, 2.6vw, 1.08rem);
-      line-height: 1.95;
-      white-space: normal;
-      overflow-wrap: anywhere;
-    }
-
-    .stanza {
-      margin-bottom: 27px;
-    }
-
-    .stanza:last-child {
-      margin-bottom: 0;
-    }
-
-    .poem-highlight {
-      color: var(--rose);
-      font-family: "Playfair Display", serif;
-      font-size: 1.12em;
-      font-weight: 600;
-    }
-
-    .poem-signature {
-      margin-top: 38px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(217, 79, 121, 0.18);
-      text-align: center;
-    }
-
-    .poem-signature p {
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .poem-signature h4 {
-      margin-top: 7px;
-      color: var(--rose);
-      font-family: "Playfair Display", serif;
-      font-size: 1.65rem;
-    }
-
-    .letter-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .secondary-button {
-      min-height: 50px;
-      padding: 14px 21px;
-      border: 1px solid rgba(120, 85, 165, 0.22);
-      border-radius: 15px;
-      background: white;
-      color: var(--purple);
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .secondary-button:hover {
-      background: #f5edf9;
-    }
-
-    .closing-note {
-      margin-top: 35px;
-      color: var(--muted);
-      font-family: "Playfair Display", serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      line-height: 1.8;
-      text-align: center;
-    }
-
-    /* Animations */
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-12px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .screen {
-        padding: 18px;
-      }
-
-      .welcome-content {
-        padding: 35px 8px;
-      }
-
-      .birthday-title {
-        letter-spacing: -1px;
-      }
-
-      .gift-icon {
-        width: 82px;
-        height: 82px;
-        border-radius: 25px;
-        font-size: 2.7rem;
-      }
-
-      .primary-button {
-        width: 100%;
-        max-width: 330px;
-        padding: 17px 15px;
-        font-size: 0.82rem;
-      }
-
-      .poem-card {
-        border-radius: 21px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171225">
+<meta name="description" content="A little birthday universe made especially for Ukwela Faith Ojochebo, with love from Songspirer.">
+<title>For Faith ✦ A Birthday Experience</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --night: #171225;
+  --cream: #fff8f0;
+  --rose: #e86c91;
+  --pink: #ffc5d4;
+  --gold: #f4d38b;
+  --lilac: #b9a0ef;
+  --ink: #38273e;
+  --muted: #817386;
+  --line: rgba(96,65,105,.15);
+  --shadow: 0 24px 70px rgba(31,18,43,.14);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+}
+
+button { font: inherit; cursor: pointer; }
+button:active { transform: scale(.985); }
+button:focus-visible { outline: 3px solid var(--gold); }
+.hidden { display: none !important; }
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; animation: appear .7s ease both; }
+
+/* INTRODUCTION */
+
+#intro {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(ellipse at 20% 20%,#49305e 0,transparent 45%),
+    radial-gradient(ellipse at 85% 75%,#63304d 0,transparent 40%),
+    linear-gradient(145deg,#151020,#24162e 55%,#171225);
+}
+
+.starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff3d1;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.intro-inner {
+  position: relative;
+  z-index: 2;
+  width: min(760px,100%);
+  padding: 46px 22px;
+}
+
+.kicker {
+  display: inline-flex;
+  gap: 9px;
+  color: var(--gold);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.intro-symbol {
+  font-size: 3rem;
+  margin: 22px 0 14px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.intro-line {
+  max-width: 570px;
+  margin: 0 auto 12px;
+  color: #e8dfea;
+  font-family: "Playfair Display",serif;
+  font-size: clamp(1.15rem,4vw,1.65rem);
+  line-height: 1.7;
+}
+
+.intro-small {
+  margin: 24px 0;
+  color: #c4b6ce;
+  line-height: 1.8;
+}
+
+.gold-rule {
+  width: 64px;
+  height: 2px;
+  margin: 25px auto;
+  background: linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 23px;
+  font-weight: 800;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn-primary {
+  color: #2c1b34;
+  background: linear-gradient(135deg,#ffe7a7,#f5bdcf);
+  box-shadow: 0 12px 34px #0003;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px #0005;
+}
+
+.btn-light {
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+.btn-small {
+  padding: 11px 16px;
+  font-size: .85rem;
+}
+
+.skip {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  border: 0;
+  background: transparent;
+  color: #c9bdd2;
+  text-decoration: underline;
+}
+
+.intro-footer {
+  margin-top: 32px;
+  color: #a99bb5;
+  font-size: .75rem;
+}
+
+/* MAIN WEBSITE */
+
+#experience {
+  display: none;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 100% 0,rgba(255,197,212,.25),transparent 25%),
+    var(--cream);
+}
+
+#experience.active { display: flex; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 18px;
+  background: rgba(255,248,240,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-family: "Playfair Display",serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.brand span { color: var(--rose); }
+
+.nav-actions {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.nav-btn {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: white;
+  color: var(--ink);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.music-btn {
+  width: 39px;
+  height: 39px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: white;
+  color: var(--rose);
+}
+
+.section {
+  width: min(960px,100%);
+  margin: 0 auto;
+  padding: 75px 22px;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.eyebrow {
+  color: var(--rose);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+h1,h2,h3 { font-family: "Playfair Display",serif; }
+
+.section-head h2 {
+  font-size: clamp(2rem,6vw,3.5rem);
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.section-head p {
+  max-width: 570px;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* BIRTHDAY HERO */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 85px 22px 95px;
+  background:
+    radial-gradient(circle at 15% 10%,#ffe2e9 0,transparent 30%),
+    radial-gradient(circle at 90% 80%,#e9dcff 0,transparent 33%);
+}
+
+.hero-content { max-width: 800px; margin: auto; }
+
+.hero-badge {
+  display: inline-block;
+  border: 1px solid #e8b9c8;
+  background: #ffffffad;
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: #a83f67;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-family: "DM Sans",sans-serif;
+  font-size: clamp(3rem,10vw,6.8rem);
+  line-height: .99;
+  letter-spacing: -2px;
+  margin: 26px 0 15px;
+  color: var(--rose);
+  font-weight: 800;
+}
+
+.hero-name {
+  font-size: clamp(2.1rem,7vw,4.5rem);
+  line-height: 1.12;
+  margin: 0 auto 20px;
+  overflow-wrap: anywhere;
+}
+
+.hero-copy {
+  max-width: 530px;
+  margin: 0 auto 28px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.gift-illustration {
+  margin: 0 auto 28px;
+  font-size: 4.2rem;
+  animation: float 3.8s ease-in-out infinite;
+  filter: drop-shadow(0 14px 16px #8e537522);
+}
+
+.hero-spark {
+  position: absolute;
+  font-size: 1.6rem;
+  animation: twinkle 2s infinite;
+}
+
+.s1 { left: 14%; top: 22%; }
+.s2 { right: 14%; top: 28%; }
+.s3 { right: 19%; bottom: 15%; }
+
+.scroll-hint {
+  margin-top: 24px;
+  color: #9d8da1;
+  font-size: .75rem;
+}
+
+/* GIFT CARDS */
+
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+}
+
+.gift-card {
+  text-align: left;
+  min-height: 225px;
+  padding: 25px;
+  border: 1px solid var(--line);
+  border-radius: 23px;
+  background: white;
+  box-shadow: 0 12px 34px #3a21470a;
+  transition: transform .25s,box-shadow .25s;
+}
+
+.gift-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.gift-card .icon { font-size: 2rem; }
+
+.gift-card h3 {
+  font-size: 1.45rem;
+  margin: 19px 0 9px;
+}
+
+.gift-card p {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.open-label {
+  color: var(--rose);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+/* POEM */
+
+.poem-wrap {
+  background: linear-gradient(180deg,#f7edf8,#fff8f0);
+}
+
+.paper {
+  max-width: 760px;
+  margin: auto;
+  padding: clamp(24px,6vw,58px);
+  border: 1px solid #ead9df;
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+    0deg,#fffdf9,#fffdf9 34px,#f9f1eb 35px
+  );
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.paper:before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #f0d9df;
+}
+
+.poem-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.flourish {
+  color: var(--rose);
+  letter-spacing: 9px;
+  font-size: 1.2rem;
+}
+
+.poem-title h3 {
+  font-size: clamp(1.8rem,5vw,2.6rem);
+  margin: 14px 0 7px;
+}
+
+.poem-title p { color: var(--muted); font-size: .86rem; }
+
+.poem-text {
+  font-size: clamp(.97rem,2.5vw,1.08rem);
+  line-height: 1.95;
+  color: #49394b;
+}
+
+.stanza { margin: 0 0 26px; }
+
+.emphasis {
+  font-family: "Playfair Display",serif;
+  color: #bd416e;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.signature {
+  text-align: center;
+  border-top: 1px solid #e8d4dc;
+  margin-top: 36px;
+  padding-top: 25px;
+}
+
+.signature small { color: var(--muted); }
+
+.signature strong {
+  display: block;
+  margin-top: 7px;
+  font: 700 1.7rem "Playfair Display",serif;
+  color: var(--rose);
+}
+
+/* BIRTHDAY WISHES */
+
+.wish-panel {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  padding: clamp(28px,6vw,54px);
+  border-radius: 28px;
+  background: linear-gradient(145deg,#291b3b,#49305e);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+.wish-mark { font-size: 2.5rem; color: var(--gold); }
+
+.wish-text {
+  min-height: 110px;
+  display: grid;
+  place-items: center;
+  margin: 20px auto 26px;
+  font: 500 clamp(1.35rem,4vw,2rem)/1.6 "Playfair Display",serif;
+}
+
+.wish-counter {
+  color: #d4c4dd;
+  font-size: .8rem;
+  margin-bottom: 22px;
+}
+
+.wish-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* FUTURE */
+
+.future-box {
+  max-width: 760px;
+  margin: auto;
+  border: 1px solid #f0d7c2;
+  border-radius: 26px;
+  padding: clamp(28px,6vw,52px);
+  text-align: center;
+  background: linear-gradient(145deg,#fff9e9,#fff);
+  box-shadow: 0 18px 55px #795b3510;
+}
+
+.future-box h3 {
+  font-size: clamp(2rem,5vw,3rem);
+  margin: 15px 0;
+}
+
+.future-words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.future-words span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f8e6ef;
+  color: #a5446b;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.future-box p {
+  max-width: 550px;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* FINAL SURPRISE */
+
+.final-section {
+  background: linear-gradient(145deg,#20152e,#382242);
+  color: white;
+  text-align: center;
+  padding: 85px 22px;
+}
+
+.final-inner { max-width: 720px; margin: auto; }
+
+.final-inner h2 {
+  font-size: clamp(2.4rem,7vw,4.5rem);
+  margin: 18px 0;
+}
+
+.final-inner p {
+  max-width: 570px;
+  margin: 0 auto 25px;
+  color: #d9cddd;
+  line-height: 1.9;
+}
+
+.secret-card {
+  max-width: 650px;
+  margin: 25px auto 0;
+  padding: clamp(25px,5vw,45px);
+  border: 1px solid #ffffff2c;
+  border-radius: 24px;
+  background: #ffffff0b;
+  animation: appear .7s ease both;
+}
+
+.secret-card p {
+  font: 500 clamp(1.2rem,3vw,1.55rem)/1.8 "Playfair Display",serif;
+  color: #fff3df;
+}
+
+.secret-card .sign {
+  margin-top: 22px;
+  color: var(--gold);
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.footer {
+  padding: 27px 20px;
+  text-align: center;
+  color: #9c8ea2;
+  background: var(--cream);
+  font-size: .78rem;
+}
+
+.footer strong { color: var(--rose); }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-11px) rotate(2deg); }
+}
+
+@keyframes twinkle {
+  0%,100% { opacity: .25; transform: scale(.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@media(max-width:700px) {
+  .gift-grid { grid-template-columns: 1fr; }
+  .gift-card { min-height: auto; }
+  .section { padding: 58px 18px; }
+  .nav { padding: 11px 12px; }
+  .brand { font-size: 1rem; }
+  .nav-btn { font-size: .7rem; padding: 8px 9px; }
+  .hero { padding: 70px 18px 78px; }
+  .paper:before { left: 10px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- SCREEN ONE: BIRTHDAY WELCOME -->
+<!-- CINEMATIC INTRO -->
+<section id="intro" class="screen active">
+  <div class="starfield" id="starfield"></div>
+  <button class="skip" id="skipIntro">Skip intro ↗</button>
+
+  <div class="intro-inner">
+    <div class="kicker">✦ A little universe, made for you ✦</div>
+    <div class="intro-symbol">✧</div>
+
+    <p class="intro-line">
+      Some people enter our lives without announcing the importance they'll eventually have.
+    </p>
+
+    <div class="gold-rule"></div>
+
+    <p class="intro-line">
+      Somehow, they become part of the story.
+    </p>
+
+    <p class="intro-small">
+      This little corner of the internet was made for one remarkable person.
+    </p>
+
+    <button class="btn btn-primary" id="enterExperience">
+      ENTER YOUR BIRTHDAY WORLD →
+    </button>
+
+    <div class="intro-footer">A personal birthday experience by Songspirer</div>
+  </div>
+</section>
+
+<!-- MAIN EXPERIENCE -->
+<section id="experience" class="screen">
+
+  <nav class="nav">
+    <div class="brand">For Faith <span>✦</span></div>
+
+    <div class="nav-actions">
+      <button class="nav-btn" data-scroll="gifts">Your gifts</button>
+      <button class="nav-btn" data-scroll="letter">The letter</button>
+      <button class="music-btn" id="musicToggle" aria-label="Play ambient chime">♫</button>
+    </div>
+  </nav>
 
   <main>
-    <section class="screen welcome active" id="welcome">
 
-      <span class="decoration one" aria-hidden="true">✿</span>
-      <span class="decoration two" aria-hidden="true">✨</span>
-      <span class="decoration three" aria-hidden="true">♡</span>
-      <span class="decoration four" aria-hidden="true">✧</span>
+    <!-- BIRTHDAY HOMEPAGE -->
+    <section class="hero" id="home">
+      <span class="hero-spark s1">✦</span>
+      <span class="hero-spark s2">♡</span>
+      <span class="hero-spark s3">✧</span>
 
-      <div class="welcome-content">
+      <div class="hero-content">
+        <span class="hero-badge">Today is all about you</span>
 
-        <div class="eyebrow">
-          A little celebration of you
-        </div>
+        <h1>HAPPY<br>BIRTHDAY!</h1>
 
-        <h1 class="birthday-title">
-          HAPPY<br> BIRTHDAY!
-        </h1>
+        <h2 class="hero-name">Ukwela Faith<br>Ojochebo</h2>
 
-        <h2 class="birthday-name">
-          Ukwela Faith<br>Ojochebo
-        </h2>
-
-        <p class="welcome-message">
-          Some people make the world a little brighter
-          simply by being in it. Today, we celebrate you.
-          Here's a little something made especially for you.
+        <p class="hero-copy">
+          Some people make the world a little brighter simply by being in it.
+          Today, we celebrate you. There are a few things waiting here,
+          made with you in mind.
         </p>
 
-        <div class="gift-icon" aria-hidden="true">
-          🎁
-        </div>
+        <div class="gift-illustration">🎁</div>
 
-        <button
-          class="primary-button"
-          id="openGift"
-          type="button"
-        >
-          OPEN YOUR BIRTHDAY PACKAGE
-          <span aria-hidden="true">→</span>
+        <button class="btn btn-primary" data-scroll="gifts">
+          DISCOVER YOUR GIFTS ↓
         </button>
 
-        <p class="footer-note">
-          Made with thought, words, and a little love. ♡
-        </p>
+        <div class="scroll-hint">Take your time. There's no rush. ♡</div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE GIFTS -->
+    <section class="section" id="gifts">
+      <div class="section-head">
+        <div class="eyebrow">A few things, just for you</div>
+        <h2>Choose your first little gift</h2>
+        <p>Each card holds something different. Open them in any order; this is your little birthday world.</p>
+      </div>
+
+      <div class="gift-grid">
+
+        <button class="gift-card" data-scroll="letter">
+          <div class="icon">💌</div>
+          <h3>Words from Songspirer</h3>
+          <p>A poem that may not be perfect, but carries a whole lot of heart.</p>
+          <span class="open-label">OPEN THE LETTER ↗</span>
+        </button>
+
+        <button class="gift-card" data-scroll="wishes">
+          <div class="icon">🌷</div>
+          <h3>Little wishes for you</h3>
+          <p>Some hopes and prayers for the person you're becoming.</p>
+          <span class="open-label">REVEAL A WISH ↗</span>
+        </button>
+
+        <button class="gift-card" data-scroll="future">
+          <div class="icon">🌠</div>
+          <h3>Your next chapter</h3>
+          <p>A small reminder of the heights I hope you reach.</p>
+          <span class="open-label">LOOK AHEAD ↗</span>
+        </button>
 
       </div>
     </section>
 
+    <!-- THE POEM -->
+    <section class="poem-wrap" id="letter">
+      <div class="section">
 
-    <!-- SCREEN TWO: THE POEM -->
+        <div class="section-head">
+          <div class="eyebrow">The first gift</div>
+          <h2>A letter for you, Faith ♡</h2>
+          <p>Some things are better said in words. This one is yours to keep.</p>
+        </div>
 
-    <section class="screen letter-screen" id="letter">
+        <article class="paper">
 
-      <div class="letter-wrapper">
-
-        <header class="letter-top">
-          <p class="small-label">Your birthday package is here</p>
-
-          <h2>
-            A Letter for You, Faith <span>♡</span>
-          </h2>
-
-          <p>
-            Some things are better said in words.
-          </p>
-        </header>
-
-
-        <article class="poem-card">
-
-          <header class="poem-heading">
-            <div class="ornament" aria-hidden="true">✿ ✧ ♡</div>
-
-            <h3>
-              A Poor Work of Art
-            </h3>
-
-            <p>
-              For Ukwela Faith Ojochebo
-            </p>
+          <header class="poem-title">
+            <div class="flourish">✿ ✧ ♡</div>
+            <h3>A Poor Work of Art</h3>
+            <p>For Ukwela Faith Ojochebo</p>
           </header>
 
+          <div class="poem-text">
 
-          <div class="poem">
-
-            <div class="stanza">
+            <p class="stanza">
               what do I write for you?<br>
               what do I write about you?<br>
               i doubt I'd be able to do the many numbers like you did.<br>
-              just like rays of light,<br>
-              i start scattering and fading with distance.<br>
-              so, I'd try to keep this short, yet packed full!
-            </div>
+              just like rays and light,<br>
+              i start scattering and fading with the distance.<br>
+              so I'd try to keep this short, yet packed full!
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               i don't know how we got close,<br>
-              but you're a <span class="poem-highlight">destiny friend.</span>
-            </div>
+              but you're a <span class="emphasis">destiny friend.</span>
+            </p>
 
-            <div class="stanza">
-              that day when I chatted you, asking how we'd go
-              about the reading stuff for Pensword in 2026,<br>
+            <p class="stanza">
+              that day when I chatted you asking how we'd go about the reading stuff for Pensword in 2026...<br>
               i was slightly thrown off by your profile picture.<br>
               yeah, you really need to change that stuff.<br>
-              but then, i loved how confident the voice behind
-              that very childlike face sounded.
-            </div>
+              but then I loved how confident the voice behind the very child-like face sounded.
+            </p>
 
-            <div class="stanza">
-              and then, when I suggested reading for a month and
-              writing the next month without reading, and you said,
-              "how wouldn't we read for a month?" then laughed,<br>
+            <p class="stanza">
+              and then when I suggested reading a month and writing the next month without reading and you said, "how wouldn't we read for a month?" then laughed,<br>
               i was like,<br>
-              <span class="poem-highlight">who does she think she is?!</span>
-            </div>
+              <span class="emphasis">who does she think she is!</span>
+            </p>
 
-            <div class="stanza">
-              but then, i came so close to being obsessed with
-              finding out who you really are.
-            </div>
+            <p class="stanza">
+              but then came so close to obsessed with finding out who you really are.
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               i told ma overflowing ink how amazing you are,<br>
-              and sir Sammy was surprised you posted me on my birthday.<br>
-              well, i was more surprised than he was.<br>
+              and sir Sammy was surprised you posted me on my birthday...<br>
+              well, I was more surprised than he was.<br>
               you even posted me a few hours before the actual birthday.
-            </div>
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               i've never been celebrated the way you did that day,<br>
-              and i saved your birthday wish on my phone,<br>
-              <span class="poem-highlight">the only birthday wish i saved.</span>
-            </div>
+              and I saved your birthday wish on my phone,<br>
+              <span class="emphasis">the only birthday wish I saved.</span>
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               i love how eager you are to help.<br>
-              i love how early you're taking your life seriously.<br>
+              i love how early you're taking your life serious.<br>
               you're the kid sister I never had,<br>
-              and i want to see you excel like mad.
-            </div>
+              and I want to see you excel like mad.
+            </p>
 
-            <div class="stanza">
-              i don't love how you call me an obsessed fan.<br>
+            <p class="stanza">
+              i don't love how you call me obsessed fan.<br>
               we started off as mutual fans, alright, but...<br>
-              how long before you realize that fans don't tell
-              each other about JAMB scores and IJMB?
-            </div>
+              how long before you realize that fans don't tell each other about JAMB scores and IJMB?
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               stop making me beg this year.<br>
-              stop crying too. crying too much should be banned,
-              walahi!
-            </div>
+              stop crying too, crying too much should be banned, walahi!
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               you've got a pretty, pretty face.<br>
-              how the hell do you wake up and decide your face
-              is still resting?!
-            </div>
+              how the hell do you wake up and decide your face is still resting?!
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               it's hard to compete against books with you.
-            </div>
+            </p>
 
-            <div class="stanza">
-              i hope that by now, we both agree that you've read
-              more books in your life than i have.<br>
-              you gotta achieve those 500 nonfiction goals.
-            </div>
+            <p class="stanza">
+              i hope that by now, we both agree that you've read more books in life than I.<br>
+              you gotta achieve the 500 nonfiction goals.
+            </p>
 
-            <div class="stanza">
-              now, i want you to make a wish,<br>
-              to God, then to me.<br>
+            <p class="stanza">
+              now I want you to make a wish,<br>
+              to God, then me.<br>
               tell me that one thing you want from me.<br>
               you've gently pushed me into so many things,<br>
               it'd just be a little way of paying you back.
-            </div>
+            </p>
 
-            <div class="stanza">
-              <span class="poem-highlight">
-                happiest of birthdays, sis...
-              </span>
-            </div>
+            <p class="stanza">
+              <span class="emphasis">happiest of birthdays, sis...</span>
+            </p>
 
-            <div class="stanza">
-              i see you reaching and touching summits<br>
-              i gave up trying to reach.
-            </div>
+            <p class="stanza">
+              i see you reaching and touching summits I gave up trying to reach.
+            </p>
 
-            <div class="stanza">
+            <p class="stanza">
               make sure you enjoy your day.
-            </div>
+            </p>
 
-            <div class="stanza">
-              birthday joke: a yes to Winfred would be a perfect
-              birthday gift to him. 😭
-            </div>
+            <p class="stanza">
+              birthday joke: A yes to Winfred would be a perfect birthday gift to him 😭
+            </p>
 
-            <div class="stanza">
-              enjoy your day like mad.
-            </div>
-
-            <div class="stanza">
-              despite being a poet,<br>
-              this is quite a poor work of art.
-            </div>
-
+            <p class="stanza">
+              enjoy your day like mad.</p>
+            <p class="stanza">despite being a poet,<br>this is quite a poor work of art.</p>
           </div>
-
-
-          <footer class="poem-signature">
-            <p>Written especially for you,</p>
-            <h4>Songspirer</h4>
-          </footer>
-
+          <footer class="signature"><small>Written especially for you,</small><strong>Songspirer</strong></footer>
         </article>
-
-
-        <p class="closing-note">
-          May this new year of your life take you
-          to places your dreams have only visited. ♡
-        </p>
-
-
-        <div class="letter-actions">
-
-          <button
-            class="secondary-button"
-            id="backHome"
-            type="button"
-          >
-            ← Back to birthday page
-          </button>
-
-          <button
-            class="secondary-button"
-            id="readAgain"
-            type="button"
-          >
-            Read from the beginning ↻
-          </button>
-
-        </div>
-
       </div>
+    </section>
 
+    <section class="section" id="wishes">
+      <div class="section-head"><div class="eyebrow">A second little gift</div><h2>Little wishes for your new year</h2><p>Tap the button and let a new wish find you. Each one is a small hope for the year ahead.</p></div>
+      <div class="wish-panel">
+        <div class="wish-mark" aria-hidden="true">✧</div>
+        <div class="wish-text" id="wishText" aria-live="polite">May you grow into the life you've been quietly preparing for.</div>
+        <div class="wish-counter" id="wishCounter">Wish 1 of 10</div>
+        <div class="wish-buttons"><button class="btn btn-primary" id="nextWish" type="button">REVEAL ANOTHER WISH ✨</button><button class="btn btn-ghost btn-small" id="resetWishes" type="button">Start again ↻</button></div>
+      </div>
+    </section>
+
+    <section class="section" id="future">
+      <div class="section-head"><div class="eyebrow">A third little gift</div><h2>To the person you're becoming</h2></div>
+      <div class="future-box">
+        <div style="font-size:2.6rem" aria-hidden="true">🌱</div>
+        <h3>A new chapter begins.</h3>
+        <p>Another year. Another opportunity to learn, to become, to try again, to surprise yourself, and to discover that you're capable of more than you imagined.</p>
+        <div class="future-words"><span>PURPOSE</span><span>WISDOM</span><span>COURAGE</span><span>GROWTH</span><span>GRACE</span></div>
+        <p>Keep taking your life seriously, Faith. Keep helping people. Keep reading, keep asking questions, and keep reaching for the things that matter to you. I hope you touch summits you haven't even learned the names of yet.</p>
+        <div style="margin-top:25px"><button class="btn btn-light" data-scroll="final" type="button">ONE LAST THING →</button></div>
+      </div>
+    </section>
+
+    <section class="final-section" id="final">
+      <div class="final-inner">
+        <div class="kicker">✦ The last little gift ✦</div>
+        <h2>You thought that was everything?</h2>
+        <p>There's one more thing. No grand speech. Just a final note, from me to you.</p>
+        <button class="btn btn-primary" id="finalGift" type="button">OPEN YOUR FINAL GIFT 💌</button>
+        <div class="secret-card hidden" id="secretCard">
+          <div style="font-size:2rem;margin-bottom:15px" aria-hidden="true">♡</div>
+          <p>May the God who gave you dreams also give you the wisdom to pursue them, the courage to keep going, the right people to walk beside you, and the grace to become all you're meant to be.</p>
+          <p>And please, for the love of all books, stop crying so much. Walahi, it should be banned. 😭</p>
+          <p class="sign">HAPPIEST BIRTHDAY, SIS.</p>
+          <p style="margin-top:10px;font:700 1.35rem 'Playfair Display',serif;color:#f4d38b">— Songspirer</p>
+        </div>
+      </div>
     </section>
   </main>
+  <footer class="footer">Made with words, thought, and affection. <strong>SONGSPIRER</strong> ✦</footer>
+</section>
 
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="closeModal" type="button" aria-label="Close">×</button>
+    <div class="modal-icon" id="modalIcon">💌</div>
+    <h2 id="modalTitle">A little something for you</h2>
+    <p id="modalBody"></p>
+    <div class="modal-actions"><button class="btn btn-primary" id="modalAction" type="button">Visit this gift ↗</button><button class="btn btn-light" id="modalOkay" type="button">Close</button></div>
+  </div>
+</div>
+<div class="toast hidden" id="toast" role="status"></div>
 
-  <script>
-    const welcome = document.getElementById("welcome");
-    const letter = document.getElementById("letter");
+<script>
+(() => {
+  const $ = (selector) => document.querySelector(selector);
+  const intro = $("#intro");
+  const experience = $("#experience");
+  const modalBackdrop = $("#modalBackdrop");
+  let lastFocus = null;
+  let wishIndex = 0;
+  let audioContext = null;
+  let soundOn = false;
 
-    const openGift = document.getElementById("openGift");
-    const backHome = document.getElementById("backHome");
-    const readAgain = document.getElementById("readAgain");
+  // Create a gentle star field without any image assets.
+  const starfield = $("#starfield");
+  for (let i = 0; i < 75; i++) {
+    const star = document.createElement("span");
+    star.className = "star";
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDelay = `${Math.random() * 3}s`;
+    star.style.animationDuration = `${2 + Math.random() * 3}s`;
+    star.style.opacity = `${0.25 + Math.random() * 0.7}`;
+    starfield.appendChild(star);
+  }
 
-    function showLetter() {
-      welcome.classList.remove("active");
-      letter.classList.add("active");
+  function enter() {
+    intro.classList.remove("active");
+    experience.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+  $("#enterExperience").addEventListener("click", enter);
+  $("#skipIntro").addEventListener("click", enter);
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+  function scrollToSection(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  document.querySelectorAll("[data-scroll]").forEach(button => {
+    button.addEventListener("click", () => scrollToSection(button.dataset.scroll));
+  });
+
+  const modalContent = {
+    poem: {
+      icon: "💌",
+      title: "Words from Songspirer",
+      body: "This is the heart of the whole gift: a poem about how a friendship began, the little things that stayed with me, and the heights I hope you reach.",
+      action: "READ YOUR LETTER",
+      target: "letter"
+    },
+    wishes: {
+      icon: "🌷",
+      title: "Little wishes for you",
+      body: "A handful of hopes for your new year: purpose, peace, courage, joy, and the grace to keep becoming.",
+      action: "REVEAL A WISH",
+      target: "wishes"
+    },
+    future: {
+      icon: "🌠",
+      title: "Your next chapter",
+      body: "A reminder that your story is still unfolding, and there are summits ahead that you haven't even imagined yet.",
+      action: "LOOK AHEAD",
+      target: "future"
+    }
+  };
+
+  function openModal(key) {
+    const item = modalContent[key];
+    if (!item) return;
+    lastFocus = document.activeElement;
+    $("#modalIcon").textContent = item.icon;
+    $("#modalTitle").textContent = item.title;
+    $("#modalBody").textContent = item.body;
+    $("#modalAction").textContent = item.action;
+    $("#modalAction").dataset.target = item.target;
+    modalBackdrop.classList.add("show");
+    $("#closeModal").focus();
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove("show");
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll("[data-open]").forEach(button => {
+    button.addEventListener("click", () => openModal(button.dataset.open));
+  });
+
+  $("#closeModal").addEventListener("click", closeModal);
+  $("#modalOkay").addEventListener("click", closeModal);
+
+  modalBackdrop.addEventListener("click", event => {
+    if (event.target === modalBackdrop) closeModal();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && modalBackdrop.classList.contains("show")) closeModal();
+  });
+
+  $("#modalAction").addEventListener("click", event => {
+    const target = event.currentTarget.dataset.target;
+    closeModal();
+    scrollToSection(target);
+    if (target === "wishes") showWishToast();
+  });
+
+  const wishes = [
+    "May you grow into the life you've been quietly preparing for.",
+    "May God give you clarity for the decisions ahead and peace while you wait for answers.",
+    "May your kindness find its way back to you through people who care for you well.",
+    "May your courage become louder than the doubts that sometimes try to interrupt you.",
+    "May you meet opportunities that recognise your gifts, and have the wisdom to make the most of them.",
+    "May your love for learning open doors you haven't even thought to knock on.",
+    "May you find joy in ordinary days, not only in the milestones everyone celebrates.",
+    "May you have the strength to begin again whenever life asks you to.",
+    "May you become the kind of person your younger self would feel safe and proud to grow into.",
+    "May this year bring you closer to God, closer to your purpose, and closer to the good things you've been praying for."
+  ];
+
+  function renderWish() {
+    $("#wishText").textContent = wishes[wishIndex];
+    $("#wishCounter").textContent = `Wish ${wishIndex + 1} of ${wishes.length}`;
+  }
+
+  function showWishToast() {
+    const toast = $("#toast");
+    toast.textContent = "A little wish is waiting for you below. ✨";
+    toast.classList.remove("hidden");
+    window.setTimeout(() => toast.classList.add("hidden"), 2600);
+  }
+
+  $("#nextWish").addEventListener("click", () => {
+    wishIndex = (wishIndex + 1) % wishes.length;
+    renderWish();
+  });
+
+  $("#resetWishes").addEventListener("click", () => {
+    wishIndex = 0;
+    renderWish();
+  });
+
+  $("#finalGift").addEventListener("click", () => {
+    const card = $("#secretCard");
+    card.classList.remove("hidden");
+    $("#finalGift").textContent = "YOUR GIFT IS OPEN ♡";
+    $("#finalGift").disabled = true;
+    card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  // Optional gentle ambient tones, only after the visitor explicitly opts in.
+  function playTone() {
+    if (!audioContext) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) {
+        $("#musicToggle").textContent = "×";
+        $("#musicToggle").title = "Ambient sound is not supported in this browser";
+        return;
+      }
+      audioContext = new AudioCtx();
     }
 
-    function showWelcome() {
-      letter.classList.remove("active");
-      welcome.classList.add("active");
+    if (audioContext.state === "suspended") audioContext.resume();
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
+    const notes = [523.25, 659.25, 783.99, 659.25];
 
-    openGift.addEventListener("click", showLetter);
+    notes.forEach((frequency, index) => {
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
 
-    backHome.addEventListener("click", showWelcome);
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
 
-    readAgain.addEventListener("click", () => {
-      const poem = document.querySelector(".poem-card");
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime + index * 0.38);
+      gain.gain.exponentialRampToValueAtTime(0.035, audioContext.currentTime + index * 0.38 + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + index * 0.38 + 0.32);
 
-      poem.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+
+      oscillator.start(audioContext.currentTime + index * 0.38);
+      oscillator.stop(audioContext.currentTime + index * 0.38 + 0.34);
     });
-  </script>
+  }
 
+  $("#musicToggle").addEventListener("click", () => {
+    soundOn = !soundOn;
+    $("#musicToggle").textContent = soundOn ? "♫✓" : "♫";
+    $("#musicToggle").setAttribute(
+      "aria-label",
+      soundOn ? "Play another ambient chime" : "Play ambient chime"
+    );
+
+    if (soundOn) playTone();
+    else if (audioContext && audioContext.state === "running") audioContext.suspend();
+  });
+})();
+</script>
 </body>
 </html>
