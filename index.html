@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="theme-color"
+    content="#fff5f2"
+  />
+
+  <meta
+    name="description"
+    content="A little birthday surprise for Ukwela Faith Ojochebo, with love from Songspirer."
+  />
+
+  <title>Happy Birthday, Faith! 🎂</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --cream: #fff8f3;
+      --pink: #f8b8c8;
+      --rose: #d94f79;
+      --purple: #7855a5;
+      --ink: #38253d;
+      --muted: #786a7b;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 5px;
+    }
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .screen.active {
+      display: flex;
+      animation: fadeIn 0.7s ease both;
+    }
+
+    /* Decorative background */
+
+    .welcome {
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 10% 15%,
+          rgba(248, 184, 200, 0.40),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 85%,
+          rgba(120, 85, 165, 0.16),
+          transparent 35%
+        ),
+        var(--cream);
+    }
+
+    .welcome-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 720px;
+      padding: 50px 18px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 24px;
+      padding: 10px 17px;
+      border: 1px solid rgba(217, 79, 121, 0.25);
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.65);
+
+      color: var(--rose);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .birthday-title {
+      margin-bottom: 12px;
+      color: var(--rose);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+
+    .birthday-name {
+      margin: 0 auto 22px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 7vw, 4.3rem);
+      font-weight: 700;
+      line-height: 1.12;
+      overflow-wrap: anywhere;
+    }
+
+    .welcome-message {
+      max-width: 430px;
+      margin: 0 auto 32px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .gift-icon {
+      display: grid;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 28px;
+      place-items: center;
+
+      border: 1px solid rgba(217, 79, 121, 0.15);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 16px 45px rgba(115, 67, 103, 0.10);
+
+      font-size: 3.3rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      min-height: 58px;
+      padding: 17px 27px;
+      border: none;
+      border-radius: 18px;
+
+      background: linear-gradient(
+        135deg,
+        var(--rose),
+        var(--purple)
+      );
+
+      color: white;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+
+      box-shadow: 0 12px 28px rgba(160, 73, 127, 0.22);
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 17px 34px rgba(160, 73, 127, 0.30);
+    }
+
+    .footer-note {
+      margin-top: 36px;
+      color: #9a8999;
+      font-size: 0.8rem;
+    }
+
+    /* Floating decorations */
+
+    .decoration {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.65;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .decoration.one {
+      top: 12%;
+      left: 8%;
+      font-size: 2rem;
+    }
+
+    .decoration.two {
+      top: 20%;
+      right: 9%;
+      font-size: 2.5rem;
+      animation-delay: 1s;
+    }
+
+    .decoration.three {
+      bottom: 13%;
+      left: 12%;
+      font-size: 2rem;
+      animation-delay: 2s;
+    }
+
+    .decoration.four {
+      right: 10%;
+      bottom: 17%;
+      font-size: 2rem;
+      animation-delay: 0.5s;
+    }
+
+    /* Birthday letter */
+
+    .letter-screen {
+      display: none;
+      justify-content: center;
+      padding: 45px 18px 60px;
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(248, 184, 200, 0.25),
+          transparent 30%
+        ),
+        var(--cream);
+    }
+
+    .letter-screen.active {
+      display: flex;
+    }
+
+    .letter-wrapper {
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .letter-top {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .letter-top .small-label {
+      margin-bottom: 12px;
+      color: var(--rose);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .letter-top h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1.2;
+    }
+
+    .letter-top p {
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .poem-card {
+      padding: clamp(25px, 6vw, 55px);
+      border: 1px solid rgba(217, 79, 121, 0.13);
+      border-radius: 28px;
+
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 20px 70px rgba(84, 52, 84, 0.08);
+    }
+
+    .poem-heading {
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .poem-heading .ornament {
+      margin-bottom: 14px;
+      color: var(--rose);
+      font-size: 1.5rem;
+      letter-spacing: 9px;
+    }
+
+    .poem-heading h3 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.6rem, 5vw, 2.3rem);
+      line-height: 1.3;
+    }
+
+    .poem-heading p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .poem {
+      color: #49394b;
+      font-size: clamp(0.98rem, 2.6vw, 1.08rem);
+      line-height: 1.95;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .stanza {
+      margin-bottom: 27px;
+    }
+
+    .stanza:last-child {
+      margin-bottom: 0;
+    }
+
+    .poem-highlight {
+      color: var(--rose);
+      font-family: "Playfair Display", serif;
+      font-size: 1.12em;
+      font-weight: 600;
+    }
+
+    .poem-signature {
+      margin-top: 38px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(217, 79, 121, 0.18);
+      text-align: center;
+    }
+
+    .poem-signature p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .poem-signature h4 {
+      margin-top: 7px;
+      color: var(--rose);
+      font-family: "Playfair Display", serif;
+      font-size: 1.65rem;
+    }
+
+    .letter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .secondary-button {
+      min-height: 50px;
+      padding: 14px 21px;
+      border: 1px solid rgba(120, 85, 165, 0.22);
+      border-radius: 15px;
+      background: white;
+      color: var(--purple);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .secondary-button:hover {
+      background: #f5edf9;
+    }
+
+    .closing-note {
+      margin-top: 35px;
+      color: var(--muted);
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    /* Animations */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .screen {
+        padding: 18px;
+      }
+
+      .welcome-content {
+        padding: 35px 8px;
+      }
+
+      .birthday-title {
+        letter-spacing: -1px;
+      }
+
+      .gift-icon {
+        width: 82px;
+        height: 82px;
+        border-radius: 25px;
+        font-size: 2.7rem;
+      }
+
+      .primary-button {
+        width: 100%;
+        max-width: 330px;
+        padding: 17px 15px;
+        font-size: 0.82rem;
+      }
+
+      .poem-card {
+        border-radius: 21px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SCREEN ONE: BIRTHDAY WELCOME -->
+
+  <main>
+    <section class="screen welcome active" id="welcome">
+
+      <span class="decoration one" aria-hidden="true">✿</span>
+      <span class="decoration two" aria-hidden="true">✨</span>
+      <span class="decoration three" aria-hidden="true">♡</span>
+      <span class="decoration four" aria-hidden="true">✧</span>
+
+      <div class="welcome-content">
+
+        <div class="eyebrow">
+          A little celebration of you
+        </div>
+
+        <h1 class="birthday-title">
+          HAPPY<br> BIRTHDAY!
+        </h1>
+
+        <h2 class="birthday-name">
+          Ukwela Faith<br>Ojochebo
+        </h2>
+
+        <p class="welcome-message">
+          Some people make the world a little brighter
+          simply by being in it. Today, we celebrate you.
+          Here's a little something made especially for you.
+        </p>
+
+        <div class="gift-icon" aria-hidden="true">
+          🎁
+        </div>
+
+        <button
+          class="primary-button"
+          id="openGift"
+          type="button"
+        >
+          OPEN YOUR BIRTHDAY PACKAGE
+          <span aria-hidden="true">→</span>
+        </button>
+
+        <p class="footer-note">
+          Made with thought, words, and a little love. ♡
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- SCREEN TWO: THE POEM -->
+
+    <section class="screen letter-screen" id="letter">
+
+      <div class="letter-wrapper">
+
+        <header class="letter-top">
+          <p class="small-label">Your birthday package is here</p>
+
+          <h2>
+            A Letter for You, Faith <span>♡</span>
+          </h2>
+
+          <p>
+            Some things are better said in words.
+          </p>
+        </header>
+
+
+        <article class="poem-card">
+
+          <header class="poem-heading">
+            <div class="ornament" aria-hidden="true">✿ ✧ ♡</div>
+
+            <h3>
+              A Poor Work of Art
+            </h3>
+
+            <p>
+              For Ukwela Faith Ojochebo
+            </p>
+          </header>
+
+
+          <div class="poem">
+
+            <div class="stanza">
+              what do I write for you?<br>
+              what do I write about you?<br>
+              i doubt I'd be able to do the many numbers like you did.<br>
+              just like rays of light,<br>
+              i start scattering and fading with distance.<br>
+              so, I'd try to keep this short, yet packed full!
+            </div>
+
+            <div class="stanza">
+              i don't know how we got close,<br>
+              but you're a <span class="poem-highlight">destiny friend.</span>
+            </div>
+
+            <div class="stanza">
+              that day when I chatted you, asking how we'd go
+              about the reading stuff for Pensword in 2026,<br>
+              i was slightly thrown off by your profile picture.<br>
+              yeah, you really need to change that stuff.<br>
+              but then, i loved how confident the voice behind
+              that very childlike face sounded.
+            </div>
+
+            <div class="stanza">
+              and then, when I suggested reading for a month and
+              writing the next month without reading, and you said,
+              "how wouldn't we read for a month?" then laughed,<br>
+              i was like,<br>
+              <span class="poem-highlight">who does she think she is?!</span>
+            </div>
+
+            <div class="stanza">
+              but then, i came so close to being obsessed with
+              finding out who you really are.
+            </div>
+
+            <div class="stanza">
+              i told ma overflowing ink how amazing you are,<br>
+              and sir Sammy was surprised you posted me on my birthday.<br>
+              well, i was more surprised than he was.<br>
+              you even posted me a few hours before the actual birthday.
+            </div>
+
+            <div class="stanza">
+              i've never been celebrated the way you did that day,<br>
+              and i saved your birthday wish on my phone,<br>
+              <span class="poem-highlight">the only birthday wish i saved.</span>
+            </div>
+
+            <div class="stanza">
+              i love how eager you are to help.<br>
+              i love how early you're taking your life seriously.<br>
+              you're the kid sister I never had,<br>
+              and i want to see you excel like mad.
+            </div>
+
+            <div class="stanza">
+              i don't love how you call me an obsessed fan.<br>
+              we started off as mutual fans, alright, but...<br>
+              how long before you realize that fans don't tell
+              each other about JAMB scores and IJMB?
+            </div>
+
+            <div class="stanza">
+              stop making me beg this year.<br>
+              stop crying too. crying too much should be banned,
+              walahi!
+            </div>
+
+            <div class="stanza">
+              you've got a pretty, pretty face.<br>
+              how the hell do you wake up and decide your face
+              is still resting?!
+            </div>
+
+            <div class="stanza">
+              it's hard to compete against books with you.
+            </div>
+
+            <div class="stanza">
+              i hope that by now, we both agree that you've read
+              more books in your life than i have.<br>
+              you gotta achieve those 500 nonfiction goals.
+            </div>
+
+            <div class="stanza">
+              now, i want you to make a wish,<br>
+              to God, then to me.<br>
+              tell me that one thing you want from me.<br>
+              you've gently pushed me into so many things,<br>
+              it'd just be a little way of paying you back.
+            </div>
+
+            <div class="stanza">
+              <span class="poem-highlight">
+                happiest of birthdays, sis...
+              </span>
+            </div>
+
+            <div class="stanza">
+              i see you reaching and touching summits<br>
+              i gave up trying to reach.
+            </div>
+
+            <div class="stanza">
+              make sure you enjoy your day.
+            </div>
+
+            <div class="stanza">
+              birthday joke: a yes to Winfred would be a perfect
+              birthday gift to him. 😭
+            </div>
+
+            <div class="stanza">
+              enjoy your day like mad.
+            </div>
+
+            <div class="stanza">
+              despite being a poet,<br>
+              this is quite a poor work of art.
+            </div>
+
+          </div>
+
+
+          <footer class="poem-signature">
+            <p>Written especially for you,</p>
+            <h4>Songspirer</h4>
+          </footer>
+
+        </article>
+
+
+        <p class="closing-note">
+          May this new year of your life take you
+          to places your dreams have only visited. ♡
+        </p>
+
+
+        <div class="letter-actions">
+
+          <button
+            class="secondary-button"
+            id="backHome"
+            type="button"
+          >
+            ← Back to birthday page
+          </button>
+
+          <button
+            class="secondary-button"
+            id="readAgain"
+            type="button"
+          >
+            Read from the beginning ↻
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+
+  <script>
+    const welcome = document.getElementById("welcome");
+    const letter = document.getElementById("letter");
+
+    const openGift = document.getElementById("openGift");
+    const backHome = document.getElementById("backHome");
+    const readAgain = document.getElementById("readAgain");
+
+    function showLetter() {
+      welcome.classList.remove("active");
+      letter.classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function showWelcome() {
+      letter.classList.remove("active");
+      welcome.classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    openGift.addEventListener("click", showLetter);
+
+    backHome.addEventListener("click", showWelcome);
+
+    readAgain.addEventListener("click", () => {
+      const poem = document.querySelector(".poem-card");
+
+      poem.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  </script>
+
+</body>
+</html>
